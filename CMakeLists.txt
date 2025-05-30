@@ -16,7 +16,6 @@ set(PYINSTALLER_FLAGS
 set(PY_MAIN "${PROJECT_SOURCE_DIR}/src/main.py")
 set(APP_NAME "app")
 option(USE_PYINSTALLER "Bundle with PyInstaller" ON)
-option(STATIC_PYTHON   "Link static libpython" OFF)
 
 # Performance flags
 # To target ARM, uncomment the following lines and adjust as needed:
@@ -55,9 +54,6 @@ add_custom_command(
 add_executable(${APP_NAME} ${GENERATED_C})
 target_include_directories(${APP_NAME} PRIVATE ${Python3_INCLUDE_DIRS})
 target_link_libraries(${APP_NAME} PRIVATE Python3::Python)
-if(STATIC_PYTHON)
-  target_link_options(${APP_NAME} PRIVATE -static -Wl,-Bstatic)
-endif()
 
 # Bundle with PyInstaller
 if(USE_PYINSTALLER)
